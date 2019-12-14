@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -30,10 +31,10 @@ public class Builder
     
     [MenuItem("Custom/CI/Build Windows")]
     public static void BuildWindows()
-    {
-        Debug.Log("Start BuildWindows");
+    {  
+        Console.WriteLine("Start BuildWindows");
         var targetPath = BuildDir + "/" + AppName + ".exe";
         GenericBuild(Scenes, targetPath, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64, BuildOptions.None);
-        Debug.Log("End BuildWindows");
+        Console.WriteLine("End BuildWindows");
     }
 }
