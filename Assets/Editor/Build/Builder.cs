@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Builder
 {
@@ -32,7 +31,9 @@ public class Builder
     [MenuItem("Custom/CI/Build Windows")]
     public static void BuildWindows()
     {
+        Debug.Log("Start BuildWindows");
         var targetPath = BuildDir + "/" + AppName + ".exe";
         GenericBuild(Scenes, targetPath, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64, BuildOptions.None);
+        Debug.Log("End BuildWindows");
     }
 }
