@@ -1,0 +1,107 @@
+﻿'ユーザーデータがたまってるデータベースにリクエストしてレスポンスが帰ってきてワールドに変化があるところまで
+'clean architectureベースで
+
+@startuml
+package Presentation
+{
+    package View
+    {
+        class UsersViewTable
+        {
+            - userViewCells: UserViewCell[]
+        }
+        
+        class UserViewCell
+        {
+            
+        }
+    }
+    
+    package Presenter
+    {
+        class UserPresenter
+        {
+            - userUseCase: UserUseCase
+            - usersViewTable: UsersViewTable
+            
+            + loadUsers()
+        }
+    }
+    
+    Presenter -down- View
+    Presenter -right- UseCase
+}
+
+package Domain
+{
+    package Model
+    {
+        class UserModel
+        {
+            id: int
+            name: string
+            money: int
+        }
+        
+        class UsersModel
+        {
+            users: UserModel[]
+        }
+    }
+    
+    package Translator
+    {
+        class UserTranslator
+        {
+            + Translate(userEntities: UserEntity[])
+        }
+    }
+    
+    package UseCase
+    {
+        class UserUseCase
+        {
+            - userRepository: UserRepository
+            + LoadUsers()
+        }
+    }
+    
+    package Repository
+    {
+        class UserRepository
+        {
+            - userDataStore: UserDataStore
+            + GetUsers()
+        }
+    }
+    
+    UseCase -down- Translator
+    Translator -down- Model
+    UseCase -right- Repository
+    Repository -right- DataStore
+}
+
+package Data
+{
+    package DataStore
+    {
+        class UserDataStore
+        {
+            + GetUsers()
+        }
+    }
+    
+    package Entity
+    {
+        class UserEntity << struct >>
+        {
+            id: int
+            name: string
+            money: int
+        }
+    }
+    
+    DataStore -down- Entity
+}
+
+@enduml
