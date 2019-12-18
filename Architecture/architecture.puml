@@ -6,12 +6,12 @@ package Presentation
 {
     package View
     {
-        class UsersViewTable
+        class UsersTable << MonoBehaviour >>
         {
-            - userViewCells: UserViewCell[]
+            - userCells: UserCell[]
         }
         
-        class UserViewCell
+        class UserCell << MonoBehaviour >>
         {
             
         }
@@ -22,9 +22,9 @@ package Presentation
         class UserPresenter
         {
             - userUseCase: UserUseCase
-            - usersViewTable: UsersViewTable
+            - usersTable: UsersTable
             
-            + loadUsers()
+            + LoadUsers()
         }
     }
     
@@ -51,9 +51,9 @@ package Domain
     
     package Translator
     {
-        class UserTranslator
+        class UserTranslator <<static>>
         {
-            + Translate(userEntities: UserEntity[])
+            + {static} Translate(userEntities: IEnumerable<UserEntity>)
         }
     }
     
