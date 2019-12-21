@@ -2,8 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-using UniRx;
-
 namespace Presentation.View
 {
     public class UserCellView : MonoBehaviour, IUserCellView

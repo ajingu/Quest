@@ -10,11 +10,6 @@ package Presentation
         {
             
         }
-        
-        class UsersTableView << MonoBehaviour >>
-        { 
-            
-        }
     }
     
     package Presenter
@@ -23,13 +18,8 @@ package Presentation
         {
         
         }
-    
-        interface IUsersTableView
-        {
-        
-        }
-    
-        class UserPresenter
+
+        class UserPresenter << MonoBehaviour >>
         {
             - userUseCase: UserUseCase
             - usersTable: UsersTable
@@ -38,9 +28,7 @@ package Presentation
         }
         
         UserPresenter -> IUserCellView
-        UserPresenter -> IUsersTableView
         IUserCellView <|.. UserCellView
-        IUsersTableView <|.. UsersTableView
     }
 }
 
