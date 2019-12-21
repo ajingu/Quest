@@ -7,18 +7,17 @@ namespace Domain.Translator
 {
     public static class UserTranslator
     {
-        public static UsersModel Translate(IEnumerable<UserEntity> userEntities)
+        public static UserModel[] Translate(IEnumerable<UserEntity> userEntities)
         {
             var usersList = new List<UserModel>();
 
             foreach (var userEntity in userEntities)
             {
-                var userModel = new UserModel(userEntity);
+                var userModel = new UserModel(userEntity.Id, userEntity.Name, userEntity.IsPaid);
                 usersList.Add(userModel);
             }
             
-            var usersModel = new UsersModel(usersList.ToArray());
-            return usersModel;
+            return usersList.ToArray();
         }
     }
 }

@@ -1,18 +1,18 @@
-﻿using Data.Entity;
+﻿using UniRx;
 
 namespace Domain.Model
 {
    public class UserModel
    {
       public readonly int Id;
-      public readonly string Name;
-      public readonly int Money;
+      public StringReactiveProperty Name = new StringReactiveProperty();
+      public BoolReactiveProperty IsPaid = new BoolReactiveProperty();
 
-      public UserModel(UserEntity userEntity)
+      public UserModel(int id, string name, bool isPaid)
       {
-          Id = userEntity.Id;
-          Name = userEntity.Name;
-          Money = userEntity.Money;
+          Id = id;
+          Name.Value = name;
+          IsPaid.Value = isPaid;
       }
    }
 }

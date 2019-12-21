@@ -5,20 +5,30 @@
 package Presentation
 {
     package View
-    {
-        class UsersTable << MonoBehaviour >>
+    {   
+        class UserCellView << MonoBehaviour >>
         {
-            - userCells: UserCell[]
+            
         }
         
-        class UserCell << MonoBehaviour >>
-        {
+        class UsersTableView << MonoBehaviour >>
+        { 
             
         }
     }
     
     package Presenter
     {
+        interface IUserCellView
+        {
+        
+        }
+    
+        interface IUsersTableView
+        {
+        
+        }
+    
         class UserPresenter
         {
             - userUseCase: UserUseCase
@@ -26,10 +36,12 @@ package Presentation
             
             + LoadUsers()
         }
+        
+        UserPresenter -> IUserCellView
+        UserPresenter -> IUsersTableView
+        IUserCellView <|.. UserCellView
+        IUsersTableView <|.. UsersTableView
     }
-    
-    Presenter -down- View
-    Presenter -right- UseCase
 }
 
 package Domain
@@ -40,12 +52,7 @@ package Domain
         {
             id: int
             name: string
-            money: int
-        }
-        
-        class UsersModel
-        {
-            users: UserModel[]
+            isPaid: bool
         }
     }
     
@@ -55,30 +62,51 @@ package Domain
         {
             + {static} Translate(userEntities: IEnumerable<UserEntity>)
         }
+        
+        UserTranslator -> UserModel
     }
     
     package UseCase
     {
+        interface IUserPresenter
+        {
+            
+        }
+        
+        interface IUserRepository
+        {
+            + UserEntity[] GetUsers()
+        }
+    
         class UserUseCase
         {
             - userRepository: UserRepository
             + LoadUsers()
         }
+        
+        UserUseCase -> IUserPresenter
+        UserUseCase -> IUserRepository
+        UserUseCase -> UserTranslator
+        IUserPresenter <|.. UserPresenter
+        
+        
     }
     
     package Repository
     {
+        interface IUserDataStore
+        {
+        }
+    
         class UserRepository
         {
             - userDataStore: UserDataStore
             + GetUsers()
         }
+        
+        IUserRepository <|.. UserRepository
+        UserRepository -> IUserDataStore
     }
-    
-    UseCase -down- Translator
-    Translator -down- Model
-    UseCase -right- Repository
-    Repository -right- DataStore
 }
 
 package Data
@@ -89,6 +117,8 @@ package Data
         {
             + GetUsers()
         }
+        
+        IUserDataStore <|.. UserDataStore
     }
     
     package Entity
@@ -97,11 +127,11 @@ package Data
         {
             id: int
             name: string
-            money: int
+            isPaid: bool
         }
     }
     
-    DataStore -down- Entity
+    UserDataStore -down-> UserEntity
 }
 
 @enduml

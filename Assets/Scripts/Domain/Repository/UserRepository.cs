@@ -1,9 +1,10 @@
 ﻿using Data.DataStore;
 using Data.Entity;
+using Domain.UseCase;
 
 namespace Domain.Repository
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly UserDataStore _userDataStore;
 

@@ -1,17 +1,22 @@
 ﻿using Domain.UseCase;
-using Presentation.View;
 
 namespace Presentation.Presenter
 {
-    public class UserPresenter
+    public class UserPresenter : IUserPresenter
     {
         private UserUseCase _userUseCase;
-        private UsersTable _usersTable;
+        private IUsersTableView _usersTableView;
 
-        public UserPresenter(UserUseCase userUseCase, UsersTable usersTable)
+        public UserPresenter(UserUseCase userUseCase, IUsersTableView usersTableView)
         {
             _userUseCase = userUseCase;
-            _usersTable = usersTable;
+            _usersTableView = usersTableView;
+        }
+        
+        public void LoadUsers()
+        {
+            var userModels = _userUseCase.LoadUsers();
+            _usersTableView.UpdateUsers(userModels);
         }
     }
 }

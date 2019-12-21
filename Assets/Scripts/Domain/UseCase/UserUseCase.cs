@@ -1,24 +1,23 @@
-﻿using Domain.Repository;
-using Domain.Model;
+﻿using Domain.Model;
 using Domain.Translator;
 
 namespace Domain.UseCase
 {
     public class UserUseCase
     {
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
 
-        public UserUseCase(UserRepository userRepository)
+        public UserUseCase(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public UsersModel LoadUsers()
+        public UserModel[] LoadUsers()
         {
             var userEntities = _userRepository.GetUsers();
-            var usersModel = UserTranslator.Translate(userEntities);
+            var userModels = UserTranslator.Translate(userEntities);
             
-            return usersModel;
+            return userModels;
         }
     }
 }

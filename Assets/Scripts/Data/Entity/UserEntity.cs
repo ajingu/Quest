@@ -4,13 +4,13 @@
     {
         public readonly int Id;
         public readonly string Name;
-        public readonly int Money;
+        public readonly bool IsPaid;
 
-        public UserEntity(int id, string name, int money)
+        public UserEntity(int id, string name, bool isPaid)
         {
             Id = id;
             Name = name;
-            Money = money;
+            IsPaid = isPaid;
         }
     }
 }
