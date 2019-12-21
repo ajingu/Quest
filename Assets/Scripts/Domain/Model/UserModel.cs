@@ -1,4 +1,5 @@
 ﻿using UniRx;
+using UnityEngine;
 
 namespace Domain.Model
 {
@@ -13,6 +14,8 @@ namespace Domain.Model
           Id = id;
           Name.Value = name;
           IsPaid.Value = isPaid;
+
+          IsPaid.SkipLatestValueOnSubscribe().Subscribe(val => Debug.Log(val));
       }
    }
 }

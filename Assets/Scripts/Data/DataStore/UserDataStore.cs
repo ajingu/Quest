@@ -1,20 +1,17 @@
 ﻿using Data.Entity;
 using Domain.Repository;
+using Zenject;
 
 namespace Data.DataStore
 {
     public class UserDataStore : IUserDataStore
     {
+        [Inject]
+        private IUserNetwork _userNetwork;
+        
         public UserEntity[] GetUsers()
         {
-            //Dummy
-            var userEntities = new UserEntity[3]
-            {
-                new UserEntity(0, "Alice", false), 
-                new UserEntity(1, "Bob", true), 
-                new UserEntity(2, "Cindy", false), 
-            };
-
+            var userEntities = _userNetwork.GetUsers();
             return userEntities;
         }
     }

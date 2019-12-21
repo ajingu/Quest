@@ -1,18 +1,15 @@
 ﻿using Data.DataStore;
 using Data.Entity;
 using Domain.UseCase;
+using Zenject;
 
 namespace Domain.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly UserDataStore _userDataStore;
-
-        public UserRepository(UserDataStore userDataStore)
-        {
-            _userDataStore = userDataStore;
-        }
-
+        [Inject]
+        private IUserDataStore _userDataStore;
+   
         public UserEntity[] GetUsers()
         {
             var userEntities = _userDataStore.GetUsers();

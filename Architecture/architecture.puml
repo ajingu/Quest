@@ -101,12 +101,17 @@ package Data
 {
     package DataStore
     {
+        interface IUserNetwork
+        {
+        }
+    
         class UserDataStore
         {
             + GetUsers()
         }
         
         IUserDataStore <|.. UserDataStore
+        UserDataStore -> IUserNetwork
     }
     
     package Entity
@@ -117,6 +122,16 @@ package Data
             name: string
             isPaid: bool
         }
+    }
+    
+    package Network
+    {
+        class DummyUserNetwork
+        {
+            
+        }
+        
+        DummyUserNetwork ..|> IUserNetwork
     }
     
     UserDataStore -down-> UserEntity

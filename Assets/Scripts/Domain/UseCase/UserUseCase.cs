@@ -1,16 +1,13 @@
 ﻿using Domain.Model;
 using Domain.Translator;
+using Zenject;
 
 namespace Domain.UseCase
 {
     public class UserUseCase
     {
+        [Inject]
         private IUserRepository _userRepository;
-
-        public UserUseCase(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
 
         public UserModel[] LoadUsers()
         {
