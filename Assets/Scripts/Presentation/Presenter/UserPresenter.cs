@@ -15,7 +15,6 @@ namespace Presentation.Presenter
         [SerializeField] private Transform userCellsRoot;
         [SerializeField] private string userCellPrefabPath = "Prefabs/UserCell";
         
-        [Inject]
         private UserUseCase _userUseCase;
         
         private List<IUserCellView> _userCells = new List<IUserCellView>();
@@ -25,6 +24,12 @@ namespace Presentation.Presenter
         {
             _userCellPrefab = Resources.Load<GameObject>(userCellPrefabPath);
             _userCells = userCellsRoot.GetComponentsInChildren<IUserCellView>().ToList();
+        }
+        
+        [Inject]
+        public void Construct(UserUseCase userUseCase)
+        {
+            _userUseCase = userUseCase;
         }
         
         public void LoadUsers()

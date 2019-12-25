@@ -1,12 +1,14 @@
 ﻿using Presentation.Presenter;
 using UnityEngine;
+using Zenject;
 
 public class Main : MonoBehaviour
 {
-    [SerializeField] private UserPresenter userPresenter;
+    [Inject]
+    private UserPresenter _userPresenter;
     
     void Start()
     {
-        userPresenter.LoadUsers();
+        _userPresenter.LoadUsers();
     }
 }
