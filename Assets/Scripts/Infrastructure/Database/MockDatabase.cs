@@ -1,11 +1,12 @@
-﻿using Data.DataStore;
-using Data.Entity;
+﻿using System.Collections.Generic;
+using Infrastructure.Entity;
+using Infrastructure.Repository;
 
-namespace Data.Network
+namespace Infrastructure.Database
 {
-    public class DummyUserNetwork : IUserNetwork
+    public class DummyDatabase : IDatabase
     {
-        public UserEntity[] GetUsers()
+        public IEnumerable<UserEntity> GetUsers()
         {
             var userEntities = new UserEntity[3]
             {

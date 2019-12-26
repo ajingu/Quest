@@ -1,21 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Data.DataStore;
-using Data.Network;
-using Domain.Repository;
-using Domain.UseCase;
+using Application.UseCase;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
 namespace Presentation.Presenter
 {
-    public class UserPresenter : MonoBehaviour, IUserPresenter
+    public class UserLoadPresenter : MonoBehaviour, IUserLoadPresenter
     {
         [SerializeField] private Transform userCellsRoot;
         [SerializeField] private string userCellPrefabPath = "Prefabs/UserCell";
         
-        private UserUseCase _userUseCase;
+        private IUserLoadUseCase _userLoadUseCase;
         
         private List<IUserCellView> _userCells = new List<IUserCellView>();
         private GameObject _userCellPrefab;
@@ -27,9 +24,9 @@ namespace Presentation.Presenter
         }
         
         [Inject]
-        public void Construct(UserUseCase userUseCase)
+        public void Construct(IUserLoadUseCase userLoadUseCase)
         {
-            _userUseCase = userUseCase;
+            _userLoadUseCase = userLoadUseCase;
         }
         
         public void LoadUsers()
@@ -40,7 +37,7 @@ namespace Presentation.Presenter
             }
             _userCells.Clear();
             
-            var userModels = _userUseCase.LoadUsers();
+            var userModels = _userLoadUseCase.Load();
             foreach (var userModel in userModels)
             {
                 var userCellObject = Instantiate(_userCellPrefab, userCellsRoot);

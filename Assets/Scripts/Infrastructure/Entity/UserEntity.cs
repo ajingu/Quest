@@ -1,4 +1,4 @@
-﻿namespace Data.Entity
+﻿namespace Infrastructure.Entity
 {
     public struct UserEntity
     {

@@ -1,13 +1,13 @@
-﻿using Data.DataStore;
-using Data.Entity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Infrastructure.Entity;
+using Infrastructure.Repository;
 using UnityEngine;
 
-namespace Data.Network
+namespace Infrastructure.Database
 {
-    public class ScriptableObjectUserNetwork : IUserNetwork
+    public class ScriptableObjectDatabase : IDatabase
     {
-        public UserEntity[] GetUsers()
+        public IEnumerable<UserEntity> GetUsers()
         {
             var userData = Resources.Load<UserData>("MasterData/UserData");
 

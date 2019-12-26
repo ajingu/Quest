@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 
-using Data.Entity;
+using Infrastructure.Entity;
 using Domain.Model;
 
 namespace Domain.Translator
 {
     public static class UserTranslator
     {
-        public static UserModel[] Translate(IEnumerable<UserEntity> userEntities)
+        public static IEnumerable<User> Translate(IEnumerable<UserEntity> userEntities)
         {
-            var usersList = new List<UserModel>();
+            var usersList = new List<User>();
 
             foreach (var userEntity in userEntities)
             {
-                var userModel = new UserModel(userEntity.Id, userEntity.Name, userEntity.IsPaid);
-                usersList.Add(userModel);
+                var user = new User(userEntity.Id, userEntity.Name, userEntity.IsPaid);
+                usersList.Add(user);
             }
             
             return usersList.ToArray();

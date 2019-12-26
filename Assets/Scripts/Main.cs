@@ -5,10 +5,10 @@ using Zenject;
 public class Main : MonoBehaviour
 {
     [Inject]
-    private UserPresenter _userPresenter;
+    private UserLoadPresenter _userLoadPresenter;
     
     void Start()
     {
-        _userPresenter.LoadUsers();
+        _userLoadPresenter.LoadUsers();
     }
 }

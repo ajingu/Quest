@@ -32,9 +32,9 @@ public class Builder
     [MenuItem("Custom/CI/Build Windows")]
     public static void BuildWindows()
     {  
-        Console.WriteLine("Start BuildWindows");
+        Debug.Log("Start BuildWindows");
         var targetPath = BuildDir + "/" + AppName + ".exe";
         GenericBuild(Scenes, targetPath, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64, BuildOptions.None);
-        Console.WriteLine("End BuildWindows");
+        Debug.Log("End BuildWindows");
     }
 }
