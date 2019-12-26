@@ -1,61 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Application.UseCase;
-using UniRx;
-using UnityEngine;
+using Domain.Model;
+using Presentation.View;
 using Zenject;
 
 namespace Presentation.Presenter
 {
-    public class UserLoadPresenter : MonoBehaviour, IUserLoadPresenter
+    public class UserLoadPresenter : IUserLoadPresenter
     {
-        [SerializeField] private Transform userCellsRoot;
-        [SerializeField] private string userCellPrefabPath = "Prefabs/UserCell";
-        
-        private IUserLoadUseCase _userLoadUseCase;
-        
-        private List<IUserCellView> _userCells = new List<IUserCellView>();
-        private GameObject _userCellPrefab;
-        
-        private void Awake()
-        {
-            _userCellPrefab = Resources.Load<GameObject>(userCellPrefabPath);
-            _userCells = userCellsRoot.GetComponentsInChildren<IUserCellView>().ToList();
-        }
-        
         [Inject]
-        public void Construct(IUserLoadUseCase userLoadUseCase)
-        {
-            _userLoadUseCase = userLoadUseCase;
-        }
+        private UserTableView _userTableView;
         
-        public void LoadUsers()
+        public void LoadUsers(IEnumerable<User> users)
         {
-            foreach (var userCell in _userCells)
-            {
-                userCell.Delete();
-            }
-            _userCells.Clear();
-            
-            var userModels = _userLoadUseCase.Load();
-            foreach (var userModel in userModels)
-            {
-                var userCellObject = Instantiate(_userCellPrefab, userCellsRoot);
-                var userCell = userCellObject.GetComponent<IUserCellView>();
-
-                userCell.NameText.text = userModel.Name.Value;
-
-                // Model -> View
-                userModel.IsPaid
-                    .Subscribe(isPaid => userCell.IsPaidToggle.isOn = isPaid)
-                    .AddTo(userCellObject);
-                
-                // View -> Model
-                userCell.IsPaidToggle
-                    .OnValueChangedAsObservable()
-                    .Subscribe(isPaid => userModel.IsPaid.Value = isPaid)
-                    .AddTo(userCellObject);
-            }
+            _userTableView.LoadUsers(users);
         }
     }
 }

@@ -7,9 +7,9 @@ namespace Application.Controller
     {
         [Inject] private IUserLoadUseCase _userLoadUseCase;
 
-        public void LoadUser()
+        public void LoadUsers()
         {
-            _userLoadUseCase.Load();
+            _userLoadUseCase.LoadUsers();
         }
     }
 }
