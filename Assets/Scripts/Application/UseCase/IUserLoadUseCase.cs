@@ -5,6 +5,6 @@ namespace Application.UseCase
 {
     public interface IUserLoadUseCase
     {
-        void LoadUsers();
+        IEnumerable<User> LoadUsers();
     }
 }

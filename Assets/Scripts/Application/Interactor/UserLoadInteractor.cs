@@ -1,5 +1,7 @@
-﻿using Domain.Translator;
+﻿using System.Collections.Generic;
+using Domain.Translator;
 using Application.UseCase;
+using Domain.Model;
 using Zenject;
 
 namespace Application.Interactor
@@ -7,14 +9,13 @@ namespace Application.Interactor
     public class UserLoadInteractor : IUserLoadUseCase
     {
         [Inject] private IUserRepository _userRepository;
-        [Inject] private IUserLoadPresenter _userLoadPresenter;
 
-        public void LoadUsers()
+        public IEnumerable<User> LoadUsers()
         {
             var userEntities = _userRepository.FindAll();
             var users = UserTranslator.Translate(userEntities);
 
-            _userLoadPresenter.LoadUsers(users);
+            return users;
         }
     }
 }
