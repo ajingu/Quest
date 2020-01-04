@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Translator;
 using Application.UseCase;
 using Domain.Model;
@@ -10,9 +11,9 @@ namespace Application.Interactor
     {
         [Inject] private IUserRepository _userRepository;
 
-        public IEnumerable<User> LoadUsers()
+        public async Task<IEnumerable<User>> LoadUsers()
         {
-            var userEntities = _userRepository.FindAll();
+            var userEntities = await _userRepository.FindAll();
             var users = UserTranslator.Translate(userEntities);
 
             return users;

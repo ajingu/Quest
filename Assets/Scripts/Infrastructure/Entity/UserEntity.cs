@@ -1,16 +1,23 @@
 ﻿namespace Infrastructure.Entity
 {
-    public struct UserEntity
+    [System.Serializable]
+    public class UserEntity
     {
-        public readonly int Id;
-        public readonly string Name;
-        public readonly bool IsPaid;
-
+        public int id;
+        public string name;
+        public bool isPaid;
+/*
         public UserEntity(int id, string name, bool isPaid)
         {
             Id = id;
             Name = name;
             IsPaid = isPaid;
-        }
+        }*/
+    }
+
+    [System.Serializable]
+    public class UsersEntity
+    {
+        public UserEntity[] users;
     }
 }

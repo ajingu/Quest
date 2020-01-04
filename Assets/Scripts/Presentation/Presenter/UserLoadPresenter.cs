@@ -34,7 +34,7 @@ namespace Presentation.Presenter
                 .AddTo(userLoadButtonView.gameObject);
         }
 
-        public void LoadUsers()
+        public async void LoadUsers()
         {
             var userCells = userCellsRoot.GetComponentsInChildren<UserCellView>();
             foreach (var userCell in userCells)
@@ -42,7 +42,7 @@ namespace Presentation.Presenter
                 userCell.Delete();
             }
 
-            var users = _userLoadUseCase.LoadUsers();
+            var users = await _userLoadUseCase.LoadUsers();
             
             foreach (var user in users)
             {

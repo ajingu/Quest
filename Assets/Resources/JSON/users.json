@@ -1,0 +1,17 @@
+﻿[
+  {
+    "id": 0,
+    "name": "Alice",
+    "isPaid": false
+  },
+  {
+    "id": 1,
+    "name": "Bob",
+    "isPaid": true
+  },
+  {
+    "id": 2,
+    "name": "Chan",
+    "isPaid": false
+  }
+]

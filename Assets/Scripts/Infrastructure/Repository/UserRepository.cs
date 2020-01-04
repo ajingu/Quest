@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Infrastructure.Entity;
 using Application.UseCase;
 using Zenject;
@@ -10,9 +11,9 @@ namespace Infrastructure.Repository
         [Inject]
         private IDatabase _database;
 
-        public IEnumerable<UserEntity> FindAll()
+        public async Task<IEnumerable<UserEntity>> FindAll()
         {
-            var userEntities = _database.GetUsers();
+            var userEntities = await _database.GetUsers();
             
             return userEntities;
         }

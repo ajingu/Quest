@@ -13,7 +13,7 @@ namespace Domain.Translator
 
             foreach (var userEntity in userEntities)
             {
-                var user = new User(userEntity.Id, userEntity.Name, userEntity.IsPaid);
+                var user = new User(userEntity.id, userEntity.name, userEntity.isPaid);
                 usersList.Add(user);
             }
             

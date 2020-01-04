@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Infrastructure.Entity;
 
 namespace Infrastructure.Repository
 {
     public interface IDatabase
     {
-        IEnumerable<UserEntity> GetUsers();
+        Task<IEnumerable<UserEntity>> GetUsers();
     }
 }

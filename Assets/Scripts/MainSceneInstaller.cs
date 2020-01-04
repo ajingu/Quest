@@ -8,7 +8,8 @@ public class MainSceneInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<IDatabase>().To<ScriptableObjectDatabase>().AsSingle();
+//        Container.Bind<IDatabase>().To<ScriptableObjectDatabase>().AsSingle();
+        Container.Bind<IDatabase>().To<HerokuDatabase>().AsSingle();
         Container.Bind<IUserRepository>().To<UserRepository>().AsSingle();
         Container.Bind<IUserLoadUseCase>().To<UserLoadInteractor>().AsSingle();
     }
