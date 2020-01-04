@@ -4,7 +4,7 @@ using Infrastructure.Entity;
 
 namespace Infrastructure.Repository
 {
-    public interface IDatabase
+    public interface IData
     {
         Task<IEnumerable<UserEntity>> GetUsers();
     }

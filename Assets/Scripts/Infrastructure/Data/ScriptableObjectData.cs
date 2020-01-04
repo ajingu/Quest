@@ -4,9 +4,15 @@ using Infrastructure.Entity;
 using Infrastructure.Repository;
 using UnityEngine;
 
-namespace Infrastructure.Database
+namespace Infrastructure.Data
 {
-    public class ScriptableObjectDatabase : IDatabase
+    [CreateAssetMenu]
+    public class UserData : ScriptableObject
+    {
+        public UserEntity[] userStatuses;
+    }
+    
+    public class ScriptableObjectData : IData
     {
         public async Task<IEnumerable<UserEntity>> GetUsers()
         {
@@ -15,11 +21,7 @@ namespace Infrastructure.Database
             var userEntitiesList = new List<UserEntity>();
             foreach (var userStatus in userData.userStatuses)
             {
-                //var userEntity = UserEntity(userStatus.id, userStatus.name, userStatus.isPaid);
-                var userEntity = new UserEntity();
-                userEntity.id = userStatus.id;
-                userEntity.name = userStatus.name;
-                userEntity.isPaid = userStatus.isPaid;
+                var userEntity = new UserEntity(userStatus.id, userStatus.name, userStatus.isPaid);
                 
                 userEntitiesList.Add(userEntity);
             }

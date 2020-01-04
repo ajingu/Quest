@@ -9,11 +9,11 @@ namespace Infrastructure.Repository
     public class UserRepository : IUserRepository
     {
         [Inject]
-        private IDatabase _database;
+        private IData _data;
 
         public async Task<IEnumerable<UserEntity>> FindAll()
         {
-            var userEntities = await _database.GetUsers();
+            var userEntities = await _data.GetUsers();
             
             return userEntities;
         }

@@ -1,7 +1,4 @@
-﻿'ユーザーデータがたまってるデータベースにリクエストしてレスポンスが帰ってきてワールドに変化があるところまで
-'clean architectureベースで
-
-@startuml
+﻿@startuml
 package Presentation
 {
     package View
@@ -10,25 +7,53 @@ package Presentation
         {
             
         }
+        
+        class UserLoadButtonView << MonoBehaviour >>
+        {
+        }
     }
     
     package Presenter
     {
-        interface IUserCellView
+        interface IUserLoadPresenter
         {
-        
+            + void LoadUsers()
         }
+    
+        class UserLoadPresenter << MonoBehaviour >>
+        {
+        }
+        
+        UserLoadPresenter -> UserCellView
+        UserLoadPresenter -> UserLoadButtonView
+    }
+}
 
-        class UserPresenter << MonoBehaviour >>
+package Application
+{
+    package Interactor
+    {
+        class UserLoadInteractor
         {
-            - userUseCase: UserUseCase
-            - usersTable: UsersTable
-            
-            + LoadUsers()
+        }
+    }
+
+    package UseCase
+    {
+        interface IUserRepository
+        {
+            + Task<IEnumerable<UserEntity>> GetUsers()
         }
         
-        UserPresenter -> IUserCellView
-        IUserCellView <|.. UserCellView
+        interface IUserLoadUseCase
+        {
+            + Task<IEnumerable<User>> LoadUsers();
+        }
+        
+        UserLoadInteractor -> IUserRepository
+        IUserLoadPresenter <|.. UserLoadPresenter
+        UserLoadPresenter -> IUserLoadUseCase
+        UserLoadInteractor ..|> IUserLoadUseCase
     }
 }
 
@@ -36,11 +61,11 @@ package Domain
 {
     package Model
     {
-        class UserModel
+        class User
         {
             id: int
-            name: string
-            isPaid: bool
+            name: StringReactiveProperty
+            isPaid: BoolReactiveProperty
         }
     }
     
@@ -51,90 +76,60 @@ package Domain
             + {static} Translate(userEntities: IEnumerable<UserEntity>)
         }
         
-        UserTranslator -> UserModel
+        UserLoadInteractor -> UserTranslator
+        UserTranslator -> User
     }
-    
-    package UseCase
-    {
-        interface IUserPresenter
-        {
-            
-        }
-        
-        interface IUserRepository
-        {
-            + UserEntity[] GetUsers()
-        }
-    
-        class UserUseCase
-        {
-            - userRepository: UserRepository
-            + LoadUsers()
-        }
-        
-        UserUseCase -> IUserPresenter
-        UserUseCase -> IUserRepository
-        UserUseCase -> UserTranslator
-        IUserPresenter <|.. UserPresenter
-        
-        
-    }
-    
+}
+
+package Infrastructure
+{
     package Repository
     {
-        interface IUserDataStore
+        interface IData
         {
+            + Task<IEnumerable<UserEntity>> GetUsers()
         }
     
         class UserRepository
         {
-            - userDataStore: UserDataStore
-            + GetUsers()
         }
         
         IUserRepository <|.. UserRepository
-        UserRepository -> IUserDataStore
-    }
-}
-
-package Data
-{
-    package DataStore
-    {
-        interface IUserNetwork
-        {
-        }
-    
-        class UserDataStore
-        {
-            + GetUsers()
-        }
-        
-        IUserDataStore <|.. UserDataStore
-        UserDataStore -> IUserNetwork
+        UserRepository -> IData
     }
     
     package Entity
     {
-        class UserEntity << struct >>
+        class UserEntity
         {
             id: int
             name: string
             isPaid: bool
         }
+        
+        class UsersEntity
+        {
+            users: UserEntity[]
+        }
+        
+        UsersEntity -> UserEntity
     }
     
-    package Network
+    package Data
     {
-        class DummyUserNetwork
+        class HerokuData
         {
             
         }
         
-        DummyUserNetwork ..|> IUserNetwork
+        class ScriptableObjectData
+        {
+        
+        }
+        
+        HerokuData ..|> IData
+        ScriptableObjectData ..|> IData
     }
-    
-    UserDataStore -down-> UserEntity
 }
 
 @enduml

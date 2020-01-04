@@ -1,4 +1,4 @@
-﻿namespace Application.UseCase
+﻿namespace Presentation.Presenter
 {
     public interface IUserLoadPresenter
     {
