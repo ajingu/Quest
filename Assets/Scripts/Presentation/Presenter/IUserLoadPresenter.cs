@@ -1,4 +1,6 @@
-﻿namespace Presentation.Presenter
+﻿using System.Threading.Tasks;
+
+namespace Presentation.Presenter
 {
     public interface IUserLoadPresenter
     {
